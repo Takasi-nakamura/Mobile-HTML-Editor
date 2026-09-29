@@ -1,14 +1,1 @@
-{
-  "name":"Mobile HTML Editor",
-  "short_name":"HTML Editor",
-  "description":"モバイルでHTMLを書いてプレビュー・書き出しできるPWA",
-  "start_url":"./",
-  "scope":"./",
-  "display":"standalone",
-  "background_color":"#0d1117",
-  "theme_color":"#0d1117",
-  "orientation":"any",
-  "icons":[
-    {"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
-  ]
-}
+{"name":"Mobile HTML Editor","short_name":"HTML Editor","description":"CodeMirror 6 ベースのモバイルHTMLエディター","start_url":"./","scope":"./","display":"standalone","background_color":"#0d1117","theme_color":"#0d1117","orientation":"any","icons":[{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}
