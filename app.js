@@ -76,7 +76,7 @@ function getCursorContext(cm) {
 
 function insertSnippet(cm, item) {
   const pos = cm.getCursor();
-  const word = item.trigger === "!" ? "" : item.trigger;
+  const word = item.trigger === "!" ? "!" : item.trigger;
   const from = CodeMirror.Pos(pos.line, Math.max(0, pos.ch - word.length));
   cm.replaceRange("", from, pos);
   const template = item.template;
@@ -99,7 +99,7 @@ function insertSnippet(cm, item) {
   const startPos = cm.getCursor();
   cm.replaceSelection(out);
   const base = startPos;
-  const marker = marks.find(x => x.n === 0) || marks.find(x => x.n === 1);
+  const marker = marks.find(x => x.n === 1 && x.end > x.start) || marks.find(x => x.n === 0) || marks.find(x => x.n === 1);
   if (marker) {
     const before = out.slice(0, marker.start);
     const selected = out.slice(marker.start, marker.end);
