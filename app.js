@@ -350,4 +350,4 @@ document.getElementById("installBtn").onclick=async()=>{
   if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;
   deferredPrompt=null;document.getElementById("installBtn").hidden=true;
 };
-if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(console.error));
+if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=3", {updateViaCache:"none"}).then(reg => reg.update()).catch(console.error));
