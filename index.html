@@ -1,1 +1,72 @@
-<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0d1117"><meta name="description" content="CodeMirror 6 ベースのモバイルHTMLエディター"><link rel="manifest" href="./manifest.json"><link rel="icon" href="./icon.svg" type="image/svg+xml"><link rel="stylesheet" href="./style.css"><title>Mobile HTML Editor</title></head><body><header class="topbar"><div class="brand"><span class="logo">&lt;/&gt;</span><span>HTML Editor</span></div><div class="actions"><button id="installBtn" class="ghost" hidden>インストール</button><button id="exportBtn" class="primary">書き出し</button></div></header><nav class="tabs"><button class="tab active" data-view="editor">エディター</button><button class="tab" data-view="preview">プレビュー</button></nav><main><section id="editorView" class="view active"><div class="subbar"><span id="status">自動保存</span><div><button id="formatBtn" class="small">整形</button><button id="clearBtn" class="small danger">クリア</button></div></div><div id="editor"></div></section><section id="previewView" class="view"><div class="subbar"><span>ライブプレビュー</span><button id="refreshBtn" class="small">更新</button></div><iframe id="preview" title="プレビュー" sandbox="allow-scripts allow-forms allow-modals"></iframe></section></main><div id="exportMenu" class="export-menu" hidden><button id="htmlDownload">HTMLをダウンロード</button><button id="pdfDownload">PDFをダウンロード</button></div><dialog id="pdfDialog"><div class="dialog-body"><strong>PDFを作成中…</strong><p>プレビューをPDFに変換しています。</p><button id="cancelPdf" class="small">閉じる</button></div></dialog><script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script><script type="module" src="./app.js"></script></body></html>
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090d13">
+<meta name="description" content="CodeMirror 6 ベースのモバイルHTMLエディター">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./style.css">
+<title>Mobile HTML Editor</title>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-mark">&lt;/&gt;</div>
+    <div class="brand-copy"><strong>HTML Editor</strong><span>CodeMirror 6</span></div>
+  </div>
+  <div class="top-actions">
+    <button id="installBtn" class="icon-btn" hidden title="PWAをインストール">⇩</button>
+    <button id="exportBtn" class="primary-btn">書き出す <span>⌄</span></button>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="表示切替">
+  <button class="tab active" data-view="editor"><span>⌘</span> エディター</button>
+  <button class="tab" data-view="preview"><span>◉</span> プレビュー</button>
+</nav>
+
+<main>
+  <section id="editorView" class="view active">
+    <div class="subbar">
+      <div class="file-pill"><span class="dot"></span><span>index.html</span></div>
+      <div class="sub-actions">
+        <span id="status">保存済み</span>
+        <button id="formatBtn" class="tool-btn">整形</button>
+        <button id="clearBtn" class="tool-btn danger">全消去</button>
+      </div>
+    </div>
+    <div id="editor"></div>
+    <div class="hintbar"><span>Tab</span> インデント <span>Ctrl/⌘ + Space</span> 補完</div>
+  </section>
+
+  <section id="previewView" class="view">
+    <div class="subbar">
+      <div class="file-pill"><span class="live-dot"></span><span>ライブプレビュー</span></div>
+      <button id="refreshBtn" class="tool-btn">↻ 更新</button>
+    </div>
+    <iframe id="preview" title="プレビュー" sandbox="allow-scripts allow-forms allow-modals"></iframe>
+  </section>
+</main>
+
+<div id="exportMenu" class="export-menu" hidden>
+  <div class="menu-title">エクスポート</div>
+  <button id="htmlDownload"><span>HTML</span><small>そのまま保存</small></button>
+  <button id="pdfDownload"><span>PDF</span><small>プレビューをPDF化</small></button>
+</div>
+
+<dialog id="pdfDialog">
+  <div class="dialog-body">
+    <div class="spinner"></div>
+    <strong>PDFを作成中…</strong>
+    <p>ページを画像化してPDFに変換しています。</p>
+    <button id="cancelPdf" class="tool-btn">閉じる</button>
+  </div>
+</dialog>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
