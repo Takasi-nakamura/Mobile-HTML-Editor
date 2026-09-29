@@ -107,9 +107,10 @@ document.getElementById("downloadPdf").onclick=async()=>{
   if(dialog.showModal) dialog.showModal();
   const holder=document.createElement("div");
   holder.style.cssText="position:fixed;left:-100000px;top:0;width:794px;background:white;color:black;";
-  const frame=document.getElementById("preview");
-  const doc=frame.contentDocument;
-  holder.innerHTML=doc?.body?.innerHTML || editor.getValue();
+  const source=editor.getValue();
+  const parsed=new DOMParser().parseFromString(source,"text/html");
+  const styleText=[...parsed.querySelectorAll("style")].map(s=>s.textContent).join("\n");
+  holder.innerHTML=(styleText ? "<style>"+styleText+"</style>" : "")+(parsed.body?.innerHTML || source);
   document.body.appendChild(holder);
   try{
     await html2pdf().set({
