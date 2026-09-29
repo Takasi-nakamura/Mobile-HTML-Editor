@@ -1,4 +1,4 @@
-const CACHE = "mobile-html-editor-v3";
+const CACHE = "mobile-html-editor-v4";
 const APP_SHELL = [
   "./",
   "./index.html",
