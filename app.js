@@ -194,7 +194,7 @@ function showHtmlHints(cm, explicit=false) {
     }
   } else {
     const word=line.match(/(?:^|\s)([!\w-]+)$/)?.[1]||"";
-    list=HTML_SNIPPETS.filter(s=>s.trigger.startsWith(word.toLowerCase())).map(s=>({text:s.trigger,display:s.label,detail:s.detail}));
+    list=HTML_SNIPPETS.filter(s=>s.trigger.startsWith(word.toLowerCase())).map(s=>({text:s.trigger,display:s.label,detail:s.detail,hint:(cm,completion)=>insertSnippet(cm,completion)}));
   }
   if (!list.length) return CodeMirror.showHint(cm, CodeMirror.hint.html, {completeSingle:false});
   const wordMatch = line.match(/([!A-Za-z][\w:-]*)$/);
@@ -350,4 +350,4 @@ document.getElementById("installBtn").onclick=async()=>{
   if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;
   deferredPrompt=null;document.getElementById("installBtn").hidden=true;
 };
-if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=3", {updateViaCache:"none"}).then(reg => reg.update()).catch(console.error));
+if("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js?v=4", {updateViaCache:"none"}).then(reg => reg.update()).then(() => { if (navigator.serviceWorker.controller) navigator.serviceWorker.controller.postMessage({type:"APP_UPDATED"}); }).catch(console.error));
