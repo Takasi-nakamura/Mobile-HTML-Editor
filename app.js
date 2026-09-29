@@ -1,4 +1,4 @@
-const SAMPLE = \`<!doctype html>
+const SAMPLE = `<!doctype html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -17,12 +17,12 @@ const SAMPLE = \`<!doctype html>
     <button onclick="alert('Hello!')">Click me</button>
   </div>
 </body>
-</html>\`;
+</html>`;
 
 const STORAGE_KEY = "mobile-html-editor-code";
 
 const HTML_SNIPPETS = [
-  {label:"!  HTML5", detail:"HTML5 boilerplate", trigger:"!", template:\`<!doctype html>
+  {label:"!  HTML5", detail:"HTML5 boilerplate", trigger:"!", template:`<!doctype html>
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
@@ -32,34 +32,34 @@ const HTML_SNIPPETS = [
 <body>
   \${0}
 </body>
-</html>\`},
-  {label:"html  <html>", detail:"HTML document", trigger:"html", template:"<html lang=\\"ja\\">\\n  $0\\n</html>"},
-  {label:"head  <head>", detail:"document head", trigger:"head", template:"<head>\\n  $0\\n</head>"},
-  {label:"body  <body>", detail:"document body", trigger:"body", template:"<body>\\n  $0\\n</body>"},
+</html>`},
+  {label:"html  <html>", detail:"HTML document", trigger:"html", template:"<html lang=\"ja\">\n  $0\n</html>"},
+  {label:"head  <head>", detail:"document head", trigger:"head", template:"<head>\n  $0\n</head>"},
+  {label:"body  <body>", detail:"document body", trigger:"body", template:"<body>\n  $0\n</body>"},
   {label:"div  <div>", detail:"block element", trigger:"div", template:"<div>$0</div>"},
-  {label:"section  <section>", detail:"section element", trigger:"section", template:"<section>\\n  $0\\n</section>"},
-  {label:"header  <header>", detail:"header element", trigger:"header", template:"<header>\\n  $0\\n</header>"},
-  {label:"main  <main>", detail:"main element", trigger:"main", template:"<main>\\n  $0\\n</main>"},
-  {label:"footer  <footer>", detail:"footer element", trigger:"footer", template:"<footer>\\n  $0\\n</footer>"},
-  {label:"nav  <nav>", detail:"navigation", trigger:"nav", template:"<nav>\\n  $0\\n</nav>"},
+  {label:"section  <section>", detail:"section element", trigger:"section", template:"<section>\n  $0\n</section>"},
+  {label:"header  <header>", detail:"header element", trigger:"header", template:"<header>\n  $0\n</header>"},
+  {label:"main  <main>", detail:"main element", trigger:"main", template:"<main>\n  $0\n</main>"},
+  {label:"footer  <footer>", detail:"footer element", trigger:"footer", template:"<footer>\n  $0\n</footer>"},
+  {label:"nav  <nav>", detail:"navigation", trigger:"nav", template:"<nav>\n  $0\n</nav>"},
   {label:"h1  <h1>", detail:"heading", trigger:"h1", template:"<h1>$0</h1>"},
   {label:"p  <p>", detail:"paragraph", trigger:"p", template:"<p>$0</p>"},
   {label:"a  <a>", detail:"link", trigger:"a", template:'<a href="$1">$0</a>'},
   {label:"img  <img>", detail:"image", trigger:"img", template:'<img src="$1" alt="$0">'},
-  {label:"button  <button>", detail:"button", trigger:"button", template:"<button type=\\"button\\">$0</button>"},
-  {label:"ul  <ul>", detail:"unordered list", trigger:"ul", template:"<ul>\\n  <li>$0</li>\\n</ul>"},
-  {label:"ol  <ol>", detail:"ordered list", trigger:"ol", template:"<ol>\\n  <li>$0</li>\\n</ol>"},
+  {label:"button  <button>", detail:"button", trigger:"button", template:"<button type=\"button\">$0</button>"},
+  {label:"ul  <ul>", detail:"unordered list", trigger:"ul", template:"<ul>\n  <li>$0</li>\n</ul>"},
+  {label:"ol  <ol>", detail:"ordered list", trigger:"ol", template:"<ol>\n  <li>$0</li>\n</ol>"},
   {label:"li  <li>", detail:"list item", trigger:"li", template:"<li>$0</li>"},
-  {label:"form  <form>", detail:"form", trigger:"form", template:"<form>\\n  $0\\n</form>"},
+  {label:"form  <form>", detail:"form", trigger:"form", template:"<form>\n  $0\n</form>"},
   {label:"input  <input>", detail:"text input", trigger:"input", template:'<input type="text" name="$1" placeholder="$0">'},
-  {label:"textarea  <textarea>", detail:"multiline input", trigger:"textarea", template:"<textarea rows=\\"4\\">$0</textarea>"},
-  {label:"select  <select>", detail:"select box", trigger:"select", template:"<select>\\n  <option>$0</option>\\n</select>"},
+  {label:"textarea  <textarea>", detail:"multiline input", trigger:"textarea", template:"<textarea rows=\"4\">$0</textarea>"},
+  {label:"select  <select>", detail:"select box", trigger:"select", template:"<select>\n  <option>$0</option>\n</select>"},
   {label:"link  stylesheet", detail:"CSS stylesheet", trigger:"link", template:'<link rel="stylesheet" href="$0">'},
-  {label:"script  <script>", detail:"JavaScript", trigger:"script", template:"<script>\\n  $0\\n</script>"},
-  {label:"style  <style>", detail:"CSS", trigger:"style", template:"<style>\\n  $0\\n</style>"},
+  {label:"script  <script>", detail:"JavaScript", trigger:"script", template:"<script>\n  $0\n</script>"},
+  {label:"style  <style>", detail:"CSS", trigger:"style", template:"<style>\n  $0\n</style>"},
   {label:"meta  viewport", detail:"responsive viewport", trigger:"meta", template:'<meta name="viewport" content="width=device-width, initial-scale=1.0">'},
-  {label:"class  class=\\"\\"", detail:"class attribute", trigger:"class", template:'class="$0"'},
-  {label:"id  id=\\"\\"", detail:"id attribute", trigger:"id", template:'id="$0"'}
+  {label:"class  class=\"\"", detail:"class attribute", trigger:"class", template:'class="$0"'},
+  {label:"id  id=\"\"", detail:"id attribute", trigger:"id", template:'id="$0"'}
 ];
 
 const VOID_TAGS = new Set(["area","base","br","col","embed","hr","img","input","link","meta","param","source","track","wbr"]);
@@ -69,8 +69,8 @@ const COMMON_ATTRS = ["class","id","style","title","lang","href","src","alt","wi
 function getCursorContext(cm) {
   const pos = cm.getCursor();
   const line = cm.getLine(pos.line).slice(0, pos.ch);
-  const tagMatch = line.match(/<([A-Za-z][\\w:-]*)?[^>]*$/);
-  const attrMatch = line.match(/<[^>]*\\s([A-Za-z_:][\\w:.-]*)?$/);
+  const tagMatch = line.match(/<([A-Za-z][\w:-]*)?[^>]*$/);
+  const attrMatch = line.match(/<[^>]*\s([A-Za-z_:][\w:.-]*)?$/);
   return {pos, line, tagMatch, attrMatch};
 }
 
@@ -83,7 +83,7 @@ function insertSnippet(cm, item) {
   const marks = [];
   let out = "";
   let last = 0;
-  const re = /\\$(?:\\{(\\d+)(?::([^}]*))?\\}|(\\d+))/g;
+  const re = /\$(?:\{(\d+)(?::([^}]*))?\}|(\d+))/g;
   let m;
   while ((m = re.exec(template))) {
     out += template.slice(last, m.index);
@@ -114,7 +114,7 @@ function expandEmmet(cm) {
   const pos = cm.getCursor();
   const line = cm.getLine(pos.line);
   const before = line.slice(0, pos.ch);
-  const m = before.match(/(?:^|\\s)([A-Za-z][\\w-]*(?:[.#][\\w-]+)*(?:>[A-Za-z][\\w-]*(?:[.#][\\w-]+)*)?(?:\\*\\d+)?)$/);
+  const m = before.match(/(?:^|\s)([A-Za-z][\w-]*(?:[.#][\w-]+)*(?:>[A-Za-z][\w-]*(?:[.#][\w-]+)*)?(?:\*\d+)?)$/);
   if (!m) return false;
   const expr = m[1];
   if (!/[.#>*]/.test(expr) && !HTML_SNIPPETS.some(s => s.trigger === expr)) return false;
@@ -128,12 +128,12 @@ function expandEmmet(cm) {
 }
 
 function parseEmmetNode(token) {
-  const mult = token.match(/\\*(\\d+)$/);
+  const mult = token.match(/\*(\d+)$/);
   const count = mult ? Number(mult[1]) : 1;
-  token = token.replace(/\\*\\d+$/,"");
-  const tag = (token.match(/^[A-Za-z][\\w-]*/) || ["div"])[0];
-  const classes = [...token.matchAll(/\\.([\\w-]+)/g)].map(x=>x[1]);
-  const id = (token.match(/#([\\w-]+)/) || [])[1];
+  token = token.replace(/\*\d+$/,"");
+  const tag = (token.match(/^[A-Za-z][\w-]*/) || ["div"])[0];
+  const classes = [...token.matchAll(/\.([\w-]+)/g)].map(x=>x[1]);
+  const id = (token.match(/#([\w-]+)/) || [])[1];
   return {tag,classes,id,count};
 }
 
@@ -164,7 +164,7 @@ function expandEmmetExpression(expr) {
       const openEnd=r.html.indexOf(">");
       const close=r.html.lastIndexOf("</");
       if (close > openEnd) {
-        r.html=r.html.slice(0,openEnd+1)+"\\n  "+child.replace(/\\n/g,"\\n  ")+"\\n"+r.html.slice(close);
+        r.html=r.html.slice(0,openEnd+1)+"\n  "+child.replace(/\n/g,"\n  ")+"\n"+r.html.slice(close);
         r.cursor=r.html.indexOf("$0");
       } else {
         r.html+=child;
@@ -180,9 +180,9 @@ function showHtmlHints(cm, explicit=false) {
   const inTag = /<[^>]*$/.test(line);
   let list;
   if (inTag) {
-    const closing = /<\\/[^>]*$/.test(line);
+    const closing = /<\/[^>]*$/.test(line);
     if (closing) {
-      const m=line.match(/<\\/([\\w:-]*)$/);
+      const m=line.match(/<\/([\w:-]*)$/);
       const q=(m?.[1]||"").toLowerCase();
       list=COMMON_TAGS.filter(t=>t.startsWith(q)).map(t=>({text:t,display:"</"+t+">"}));
     } else if (attrMatch) {
@@ -193,11 +193,11 @@ function showHtmlHints(cm, explicit=false) {
       list=COMMON_TAGS.filter(t=>t.startsWith(q)).map(t=>({text:t,display:"<"+t+">"}));
     }
   } else {
-    const word=line.match(/(?:^|\\s)([!\\w-]+)$/)?.[1]||"";
+    const word=line.match(/(?:^|\s)([!\w-]+)$/)?.[1]||"";
     list=HTML_SNIPPETS.filter(s=>s.trigger.startsWith(word.toLowerCase())).map(s=>({text:s.trigger,display:s.label,detail:s.detail}));
   }
   if (!list.length) return CodeMirror.showHint(cm, CodeMirror.hint.html, {completeSingle:false});
-  const wordMatch = line.match(/([!A-Za-z][\\w:-]*)$/);
+  const wordMatch = line.match(/([!A-Za-z][\w:-]*)$/);
   const from = wordMatch ? CodeMirror.Pos(pos.line,pos.ch-wordMatch[1].length) : pos;
   const to = pos;
   CodeMirror.showHint(cm, ()=>({list,from,to}), {completeSingle:false,closeOnUnfocus:true});
@@ -237,11 +237,11 @@ const editor = CodeMirror(document.getElementById("editor"), {
       const line=cm.getLine(pos.line);
       const before=line.slice(0,pos.ch);
       const after=line.slice(pos.ch);
-      const indent=line.match(/^\\s*/)?.[0]||"";
-      if (/<[A-Za-z][^>]*>$/.test(before) && !/<\\//.test(before) && after.trim()==="") {
-        const tag=(before.match(/<([A-Za-z][\\w:-]*)[^>]*>$/)||[])[1]?.toLowerCase();
+      const indent=line.match(/^\s*/)?.[0]||"";
+      if (/<[A-Za-z][^>]*>$/.test(before) && !/<\//.test(before) && after.trim()==="") {
+        const tag=(before.match(/<([A-Za-z][\w:-]*)[^>]*>$/)||[])[1]?.toLowerCase();
         if (tag && !VOID_TAGS.has(tag)) {
-          cm.replaceSelection("\\n"+indent+"  \\n"+indent+"</"+tag+">");
+          cm.replaceSelection("\n"+indent+"  \n"+indent+"</"+tag+">");
           cm.setCursor({line:pos.line+1,ch:indent.length+2});
           return;
         }
@@ -268,10 +268,10 @@ function autoCloseTag(cm) {
   const pos=cm.getCursor();
   const line=cm.getLine(pos.line);
   const before=line.slice(0,pos.ch);
-  const m=before.match(/<([A-Za-z][\\w:-]*)[^>]*>$/);
+  const m=before.match(/<([A-Za-z][\w:-]*)[^>]*>$/);
   if (!m) return;
   const tag=m[1].toLowerCase();
-  if (VOID_TAGS.has(tag) || /<\\//.test(before)) return;
+  if (VOID_TAGS.has(tag) || /<\//.test(before)) return;
   const rest=line.slice(pos.ch);
   if (rest.trim().startsWith("</"+tag+">")) return;
   cm.replaceRange("</"+tag+">",pos,pos);
@@ -302,7 +302,7 @@ document.getElementById("clearBtn").onclick=()=>{ if(confirm("エディタの内
 document.getElementById("resetBtn").onclick=()=>{ editor.setValue(SAMPLE); closeMenu(); };
 document.getElementById("formatBtn").onclick=()=>{
   const value=editor.getValue();
-  const formatted=value.replace(/>\\s*</g,">\\n<").split("\\n").map(s=>s.trim()).filter(Boolean).join("\\n");
+  const formatted=value.replace(/>\s*</g,">\n<").split("\n").map(s=>s.trim()).filter(Boolean).join("\n");
   editor.setValue(formatted);
 };
 document.getElementById("downloadBtn").onclick=()=>toggleMenu();
@@ -328,7 +328,7 @@ document.getElementById("downloadPdf").onclick=async()=>{
   holder.style.cssText="position:fixed;left:-100000px;top:0;width:794px;background:white;color:black;";
   const source=editor.getValue();
   const parsed=new DOMParser().parseFromString(source,"text/html");
-  const styleText=[...parsed.querySelectorAll("style")].map(s=>s.textContent).join("\\n");
+  const styleText=[...parsed.querySelectorAll("style")].map(s=>s.textContent).join("\n");
   holder.innerHTML=(styleText ? "<style>"+styleText+"</style>" : "")+(parsed.body?.innerHTML || source);
   document.body.appendChild(holder);
   try{
