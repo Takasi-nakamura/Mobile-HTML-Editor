@@ -223,7 +223,10 @@ const editor = CodeMirror(document.getElementById("editor"), {
     "Ctrl-Space": cm => showHtmlHints(cm,true),
     "Cmd-Space": cm => showHtmlHints(cm,true),
     "Tab": cm => {
-      if (cm.state.completionActive) return CodeMirror.Pass;
+      if (cm.state.completionActive) {
+        CodeMirror.commands.pickCompletion(cm);
+        return;
+      }
       if (expandEmmet(cm)) return;
       if (cm.somethingSelected()) cm.indentSelection("add");
       else cm.replaceSelection("  ", "end");
