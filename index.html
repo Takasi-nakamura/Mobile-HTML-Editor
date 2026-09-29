@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Mobile HTML Editor - モバイルでHTMLを書いてプレビュー・書き出しできるPWA">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css">
+  <title>Mobile HTML Editor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">&lt;/&gt;</span><span>HTML Editor</span></div>
+    <div class="top-actions">
+      <button id="installBtn" class="icon-btn" hidden title="アプリをインストール">＋</button>
+      <button id="downloadBtn" class="primary-btn">保存</button>
+      <button id="menuBtn" class="icon-btn" aria-label="メニュー">⋮</button>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="表示切替">
+    <button class="tab active" data-view="editor">HTML</button>
+    <button class="tab" data-view="preview">プレビュー</button>
+  </nav>
+
+  <main class="app">
+    <section id="editorView" class="view active">
+      <div class="editor-toolbar">
+        <span id="status">0 行</span>
+        <button id="formatBtn" class="tool-btn">整形</button>
+        <button id="clearBtn" class="tool-btn danger">クリア</button>
+      </div>
+      <div id="editor"></div>
+    </section>
+
+    <section id="previewView" class="view">
+      <div class="preview-toolbar">
+        <span>ライブプレビュー</span>
+        <button id="refreshBtn" class="tool-btn">再読み込み</button>
+      </div>
+      <iframe id="preview" title="HTML preview" sandbox="allow-scripts allow-forms allow-modals"></iframe>
+    </section>
+  </main>
+
+  <div id="menu" class="menu" hidden>
+    <button id="downloadHtml">HTMLとしてダウンロード</button>
+    <button id="downloadPdf">PDFとしてダウンロード</button>
+    <button id="resetBtn">サンプルに戻す</button>
+  </div>
+
+  <dialog id="pdfDialog">
+    <div class="dialog-inner">
+      <h2>PDFを書き出しています</h2>
+      <p>プレビュー内容をPDFに変換しています。</p>
+      <button id="closeDialog">閉じる</button>
+    </div>
+  </dialog>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/xml/xml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/css/css.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/htmlmixed/htmlmixed.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/xml-hint.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/html-hint.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/hint/show-hint.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
